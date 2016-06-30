@@ -4,6 +4,14 @@ last_rot = 0
 target_rot = 0
 cmd_dir = 0
 stable_count = 0
+local ASTEROIDS = {
+    "http://paste.ee/r/Kb85g",
+    "http://paste.ee/r/J8Qv7",
+    "http://paste.ee/r/THBHI",
+    "http://paste.ee/p/iQvU1",
+    "http://paste.ee/r/J1AiA",
+    "http://paste.ee/r/inFeM"
+}
 --real_rot = 0
 function onload()
     drawButtons()
@@ -133,31 +141,31 @@ function moveChildren()
 end
 function drawButtons()
     self.clearButtons()
-    local z = 0.17
+    local z = 0.20
     if #cmds<4 then
-        self.createButton(buildButton('+',{click_function='Action_AddRuler',position={0.3,z,-1.8}}))
+        self.createButton(buildButton('+',{click_function='Action_AddRuler',position={-0.2,z,0.9}}))
     end
+    self.createButton(buildButton('Done',{click_function='Action_ClearRuler',position={0,z,0.7},width=300}))
     if #cmds>0 then
-        self.createButton(buildButton('Clear',{click_function='Action_ClearRuler',position={0,z,-1.4},width=500,font_size=180}))
-        self.createButton(buildButton('Move',{position={0,z,-1.0},width=500,font_size=180}))
+        self.createButton(buildButton('Move',{position={0,z,0.5},width=300}))
         if last_pos~=nil and last_rot~=nil and last_moved~=nil then
-            self.createButton(buildButton('Undo',{position={0,z,-0.6},width=500,font_size=180}))
+            self.createButton(buildButton('Undo',{position={0,z,0.3},width=300}))
         end
-        self.createButton(buildButton('-',{click_function='Action_RemoveRuler',position={-0.3,z,-1.8}}))
+        self.createButton(buildButton('-',{click_function='Action_RemoveRuler',position={0.2,z,0.9}}))
     end
-    local y = -2.4
+    local y = 1.2
     for i,cmd in ipairs(cmds) do
         if tonumber(cmd)>-2 then
-            self.createButton(buildButton('<',{click_function='Action_RulerLeft'..i,position={-0.3,z,y},width=150}))
+            self.createButton(buildButton('<',{click_function='Action_RulerLeft'..i,position={0.2,z,y}}))
         end
         local clicks = "-"
         if math.abs(tonumber(cmd))==1 then clicks = "|" end
         if math.abs(tonumber(cmd))==2 then clicks = "||" end
-        self.createButton(buildButton(clicks,{click_function=''..i,position={0,z,y},font_size=180}))
+        self.createButton(buildButton(clicks,{click_function=''..i,position={0,z,y}}))
         if tonumber(cmd)<2 then
-            self.createButton(buildButton('>',{click_function='Action_RulerRight'..i,position={0.3,z,y},width=150}))
+            self.createButton(buildButton('>',{click_function='Action_RulerRight'..i,position={-0.2,z,y}}))
         end
-        y = y - 0.5
+        y = y + 0.25
     end
 end
 function Action_RulerLeft1() RotateRuler(1,-1) end
@@ -189,23 +197,23 @@ function Action_Move()
     drawButtons()
     moveTokens(ship,last_pos,last_rot)
 end
-button_pos = {{1.15,0.5,-1.95},
-    {1.65,0.5,-2.85},
-    {2.05,0.5,-3.6},
-    {-1.15,0.5,1.95},
-    {-1.65,0.5,2.85},
-    {-2.05,0.5,3.6}}
+ship_size = {
+    {0.807,0,1.398},
+    {1.201,0,2.008},
+    {1.496,0,2.539}
+}
 function moveTokens(ship, old_pos, old_rot)
     for _,obj in ipairs(getAllObjects()) do
-        if obj.tag~="Figurine" and not obj.getName():match "Asteroid" then
+        if obj.tag~="Figurine" and not table.contains(ASTEROIDS,obj.getCustomObject().mesh) and obj~=self then
             local offset = vector.rotate(vector.sub(obj.getPosition(),old_pos),-old_rot[2])
-            local size = button_pos[ship.getVar('size')]
+            local size = ship_size[ship.getVar('size')]
             if math.abs(offset[1])<math.abs(size[1]) and math.abs(offset[3])<math.abs(size[3]) then
                 -- WAS ON BASE
                 local new_pos = vector.add(ship.getPosition(),vector.rotate(offset, ship.getRotation()[2]))
                 local new_rot = vector.add(vector.sub(ship.getRotation(),old_rot),obj.getRotation())
                 obj.setPosition(new_pos)
                 obj.setRotation(new_rot)
+                obj.lock()
             end
         end
     end
@@ -272,11 +280,11 @@ function Action_ClearRuler()
 end
 function buildButton(label, def)
     local DEFAULT_POSITION = {0,0.17,0}
-    local DEFAULT_ROTATION = {0,0,0}
+    local DEFAULT_ROTATION = {0,180,0}
     --local DEFAULT_WIDTH_PER_CHAR = 125
-    local DEFAULT_HEIGHT = 200
-    local DEFAULT_WIDTH = 200
-    local DEFAULT_FONT_SIZE = 250
+    local DEFAULT_HEIGHT = 100
+    local DEFAULT_WIDTH = 100
+    local DEFAULT_FONT_SIZE = 75
     if def.position==nil then def.position = DEFAULT_POSITION end
     if def.rotation==nil then def.rotation = DEFAULT_ROTATION end
     --if def.width==nil then def.width = 100 + string.len(label)*DEFAULT_WIDTH_PER_CHAR end
@@ -300,6 +308,10 @@ function isCmd(cmd)
     local dir = tonumber(cmd)
     return table.contains({-2,-1,0,1,2},dir)
 end
+diffuse = "http://i.imgur.com/YNFhQi0.png"
+start_model = "http://paste.ee/r/twGGH"
+mid_model = "http://paste.ee/r/UqKXw"
+end_model = "http://paste.ee/r/NyJut"
 ruler_diffuse = {
     'http://i.imgur.com/Y8LTHC2.png',
     'http://i.imgur.com/PbrGnQm.png',
@@ -313,26 +325,48 @@ end_diffuse = {
     'http://i.imgur.com/eMbDz3j.png'
 }
 function extendSelf(this, index, new_cmds)
+    --printToAll("--EXTEND--",{0,0,1})
     local dir =  tonumber(new_cmds[1])
     table.remove(new_cmds, 1)
     local pos = this.getPosition()
     local rot = this.getRotation()[2]
-    local offset = vector.scale({0,0,-5.1 },this.getScale())
+    --printToAll("rot"..rot,{0,1,1})
+    local offset = vector.scale({0,0,2.6265 },this.getScale())
+    --printToAll("offset"..vector.tostring(offset),{0,1,1})
     local rotated_offset = vector.rotate(offset,rot)
+    --printToAll("rotatedoffset"..vector.tostring(rotated_offset),{0,1,1})
     local obj_parameters = {}
-    obj_parameters.type = 'Custom_Token'
+    --obj_parameters.type = 'Custom_Token'
+    obj_parameters.type = 'Custom_Model'
     obj_parameters.position = vector.add(pos, rotated_offset)
+    --printToAll("newpos"..vector.tostring(obj_parameters.position),{0,1,1})
     local new_rot = dir * 22.5
     obj_parameters.rotation = {0,rot+new_rot,0 }
+    --printToAll("newrot"..vector.tostring(obj_parameters.rotation),{0,1,1})
     local newruler = spawnObject(obj_parameters)
     local custom = {}
+    --if index==1 then
+    --    custom.mesh = start_model
+    --else
     if index==#cmds then
-        custom.image = end_diffuse[index]
+        custom.mesh = end_model
     else
-        custom.image = ruler_diffuse[index]
+        custom.mesh = mid_model
     end
-    custom.thickness = 0.3
-    custom.merge_distance = 5
+    custom.diffuse = diffuse
+    --custom.collider = custom.mesh
+    --custom.type = 1
+    custom.material = 3
+    --custom.specular_intensity = 0
+    --custom.specular_color = {223/255, 207/255, 190/255}
+
+--    if index==#cmds then
+--        custom.image = end_diffuse[index]
+--    else
+--        custom.image = ruler_diffuse[index]
+--    end
+--    custom.thickness = 0.3
+--    custom.merge_distance = 5
     newruler.setCustomObject(custom)
     newruler.lock()
     newruler.scale(this.getScale())
@@ -348,7 +382,7 @@ function moveChild(this, index)
         pos = {pos[1],2,pos[3]}
     end
     local rot = this.getRotation()[2]
-    local offset = vector.scale({0,0,-5.1 },this.getScale())
+    local offset = vector.scale({0,0,2.6265 },this.getScale())
     local rotated_offset = vector.rotate(offset,rot)
     local child = rulers[index]
     child.setPosition(vector.add(pos, rotated_offset))
