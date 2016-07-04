@@ -9,12 +9,17 @@ local SHIPS = {
     "http://paste.ee/r/eDbf1",
     "http://paste.ee/r/6LYTT",
     "http://paste.ee/r/a7mfW" }
+local CMD_MESHES = {
+    "http://i.imgur.com/q0kgzJZ.jpg", --repair
+    "http://i.imgur.com/kCZ8ogN.jpg", --navigate
+    "http://i.imgur.com/BRFhnnN.jpg", --concentrate
+    "http://i.imgur.com/mlC12j8.jpg"} --squadron
 local SQUAD = "http://paste.ee/r/nAMCQ"
 local A_COLOR = {0,0.5,1.0 }
 local B_COLOR = {1.0,0.25,0}
 ruler = nil
 shield_dials = nil
-function onload()
+function onload(save_string)
 --    for i,ship in ipairs(getAllObjects()) do
 --        if isShip(ship) then
 --            Ship_Initialize(ship)
@@ -25,11 +30,33 @@ function onload()
 --    end
     ruler = findObjectByName('Magic Ruler')
     shield_dials = findObjectByName('Shield Dials')
+    if save_string~="" then
+        local data = JSON.decode(save_string)
+        for i, shipdata in pairs(data) do
+            local obj = getObjectFromGUID(shipdata["GUID"])
+            obj.setVar('owner',shipdata["owner"])
+        end
+    end
+end
+function onSave()
+    local save = {}
+    for i, ship in ipairs(getAllObjects()) do
+        if ship.tag == "Figurine" and ship.getVar('owner')~=nil then
+            local data = {}
+            data["GUID"] = ship.getGUID()
+            data["owner"] = ship.getVar('owner')
+            save[ship.getGUID()] = data
+        end
+    end
+    local save_string = JSON.encode_pretty(save)
+    return save_string
 end
 function update()
     for _,ship in ipairs(getAllObjects()) do
         if ship.tag == 'Figurine' and ship.name ~= '' then
             local cmd = ship.getDescription()
+            local oldName = ship.getVar('oldName')
+            ship.setVar('oldName',ship.getName())
             if not ship.getVar('init') then
                 Initialize(ship)
             end
@@ -39,6 +66,9 @@ function update()
                 CheckShip(ship)
             end
             if cmd~="" then
+                if oldName ~= ship.getName() then
+                    ship.setName(oldName)
+                end
                 ship.setDescription("")
                 if cmd=="checkscale" then
                     printToAll(ship.getScale()[1],{0,1,1})
@@ -56,39 +86,77 @@ function update()
                 if cmd:starts "var " then
                     printToAll(ship.getVar(cmd:match "var%s(.*)"),{0,1,0})
                 end
-
-                if ship.tag == 'Figurine' and ship.name ~= '' then
-    --                if not ship.getVar('init') then
-    --                    Initialize(ship)
-    --                end
-                    if isSquad(ship) then
-                        if cmd=="r" then
-                            spawnSquadRuler(ship,SQUAD_MOVE_RULER)
-                        end
-                        if cmd=="checkscale" then
-                            printToAll(ship.getScale()[1],{0,1,1})
-                        end
-                        if cmd:starts "health" then
-                            squad.UpdateName(ship,cmd:match "health%s(.*)",nil,nil)
-                        end
-                        if cmd:starts "maxhealth" then
-                            squad.UpdateName(ship,nil,cmd:match "maxhealth%s(.*)",nil)
-                        end
-                        if cmd:starts "speed" then
-                            squad.UpdateName(ship,nil,nil,cmd:match "speed%s(.*)")
-                        end
-                        --stopDropLock(ship)
-                    elseif isShip(ship) then
-    --                    CheckShip(ship)
-                        if cmd =="shields" then
-                            spawnShields(ship)
-                        end
+                if isSquad(ship) then
+                    if cmd=="r" then
+                        spawnSquadRuler(ship,SQUAD_MOVE_RULER)
+                    end
+                    if cmd=="checkscale" then
+                        printToAll(ship.getScale()[1],{0,1,1})
+                    end
+                    if cmd:starts "health" then
+                        squad.UpdateName(ship,cmd:match "health%s(.*)",nil,nil)
+                    end
+                    if cmd:starts "maxhealth" then
+                        squad.UpdateName(ship,nil,cmd:match "maxhealth%s(.*)",nil)
+                    end
+                    if cmd:starts "speed" then
+                        squad.UpdateName(ship,nil,nil,cmd:match "speed%s(.*)")
+                    end
+                    --stopDropLock(ship)
+                elseif isShip(ship) then
+--                    CheckShip(ship)
+                    if cmd =="shields" then
+                        spawnShields(ship)
+                    end
+                    if cmd =="cmds" then
+                        printCmds(ship)
                     end
                 end
             end
         end
     end
     restrictMoveDistance(moving_with_ruler)
+end
+function printCmds(ship)
+    --printToAll("printCmds",{1,0,0})
+    local owner = ship.getVar('owner')
+    --printToAll(owner,{1,0,0})
+    if owner==nil then
+        printToAll('Ship has no owner, pick it up to claim ownership',{1,0,0})
+    elseif not table.contains(getSeatedPlayers(),owner) then
+        printToAll('No player seated at: '..owner,{1,0,0})
+    else
+        local cmds = {}
+        for i,token in ipairs(getAllObjects()) do
+            local custom = token.getCustomObject()
+            local isDial = custom~=nil and table.contains(CMD_MESHES,custom.diffuse)
+            local offset = vector.rotate(vector.sub(token.getPosition(),ship.getPosition()),-ship.getRotation()[2])
+            local size = ship_size[ship.getVar('size')]
+            local isOnBase = math.abs(offset[1])<math.abs(size[1]) and math.abs(offset[3])<math.abs(size[3])
+            if isOnBase and isDial then
+                table.insert(cmds,token)
+            end
+        end
+        table.sort(cmds, function(a,b) return a.getPosition()[2] > b.getPosition()[2] end)
+        printToColor("Cmds for: "..ship.getName(), owner, {0,1,0} )
+        for i,token in ipairs(cmds) do
+            printToColor("#"..i.." "..dial.name(token), owner, {0,1,1} )
+        end
+    end
+end
+dial = {}
+function dial.name(dial)
+    local mesh = dial.getCustomObject().diffuse
+    if mesh == "http://i.imgur.com/q0kgzJZ.jpg" then
+        return "Repair"
+    elseif mesh == "http://i.imgur.com/kCZ8ogN.jpg" then
+        return "Navigate"
+    elseif mesh == "http://i.imgur.com/BRFhnnN.jpg" then
+            return "Concentrate Fire"
+    elseif mesh == "http://i.imgur.com/mlC12j8.jpg" then
+            return "Squadron"
+    end
+    return ""
 end
 --shieldedShip = nil
 ship_size = {
@@ -324,10 +392,12 @@ function drawShipButtons(ship)
         ship.clearButtons()
         local left_pos = vector.add(vector.scale(ship_size[index],vector.onedividedby(ship.getScale())),{-0.2,0.53,-0.3})
         local right_pos = vector.scale(left_pos, {-1,1,1})
-        local back_pos = {left_pos[1],0.53,-left_pos[3]}
+        local back_left_pos = {left_pos[1],0.53,-left_pos[3]}
+        local back_right_pos = {-left_pos[1],0.53,-left_pos[3]}
         ship.createButton(buildRelativeButton(ship, "M",{click_function="Action_ruler_left",position=left_pos},ship_button_def))
         ship.createButton(buildRelativeButton(ship, "M",{click_function="Action_ruler_right",position=right_pos},ship_button_def))
-        ship.createButton(buildRelativeButton(ship, "R",{click_function="Action_attack_ruler",position=back_pos},ship_button_def))
+        ship.createButton(buildRelativeButton(ship, "R",{click_function="Action_attack_ruler",position=back_left_pos},ship_button_def))
+        ship.createButton(buildRelativeButton(ship, "C",{click_function="Action_cmds",position=back_right_pos},ship_button_def))
     end
 end
 ATTACK_RULERS = {
@@ -335,6 +405,9 @@ ATTACK_RULERS = {
     "http://paste.ee/r/Gwytv",
     "http://paste.ee/r/yBgAR"
 }
+function Action_cmds(ship)
+    printCmds(ship)
+end
 function Action_attack_ruler(ship)
     local ruler = ship.getVar('ruler')
     if ruler == nil then
@@ -483,6 +556,56 @@ function onObjectDropped( player_color, dropped_object )
         moving_with_ruler.setVar('stop',2)
         moving_with_ruler=nil
     end
+    local droppos = dropped_object.getPosition()
+    if dropped_object.tag == "Figurine" then
+        dropped_object.setVar('owner',player_color)
+    end
+    local custom = dropped_object.getCustomObject()
+    local isDial = custom~=nil and table.contains(CMD_MESHES,custom.diffuse)
+    local wasDropped = dropped_object.getVar('dropped')==true
+    if isDial and not wasDropped then
+        local ship = findShip(dropped_object.getPosition())
+        if ship~=nil and ship.getVar('owner')==player_color then
+            --lift existing tokens
+            --increase others to 0.36
+            for i,token in ipairs(getAllObjects()) do
+                local other_custom = token.getCustomObject()
+                local otherIsDial = other_custom~=nil and table.contains(CMD_MESHES,other_custom.diffuse)
+                local offset = vector.rotate(vector.sub(token.getPosition(),ship.getPosition()),-ship.getRotation()[2])
+                local size = ship_size[ship.getVar('size')]
+                local isOnBase = math.abs(offset[1])<math.abs(size[1]) and math.abs(offset[3])<math.abs(size[3])
+                if otherIsDial and isOnBase and token~=dropped_object then
+                    --printToAll("moving: "..token.getGUID(),{1,0,0})
+                    local pos = token.getPosition()
+                    token.setPosition({pos[1],pos[2]-1.43+1.0+droppos[2],pos[3]})
+                end
+            end
+            --printToAll("DialDroppedNearOwnedShip",{0,1,0})
+
+            --move to 1.76
+            local shippos = ship.getPosition()
+            local shippos = ship.getPosition()
+            local offset = {0,0,-ship_size[ship.getVar('size')][3]+0.9 }
+            local rotoff = vector.rotate(offset,ship.getRotation()[2])
+            dropped_object.setPositionSmooth({shippos[1]+rotoff[1],droppos[2],shippos[3]+rotoff[3]}) --shippos[2]+0.807
+            dropped_object.setRotationSmooth({0,ship.getRotation()[2]+180,0})
+            dropped_object.lock()
+            dropped_object.setVar('dropped',true)
+        end
+    end
+end
+function findShip(position)
+    for i,ship in ipairs(getAllObjects()) do
+        if ship.tag == "Figurine" then
+            local offset = vector.rotate(vector.sub(position,ship.getPosition()),-ship.getRotation()[2])
+            local size = ship_size[ship.getVar('size')]
+            local isOnBase = math.abs(offset[1])<math.abs(size[1]) and math.abs(offset[3])<math.abs(size[3])
+            if isOnBase then
+                return ship
+            end
+        end
+    end
+    return nil
 end
 function Action_Done(squad)
     local ruler = squad.getVar('ruler')

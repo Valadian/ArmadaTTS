@@ -89,9 +89,9 @@ function onload()
         diffuse = "http://i.imgur.com/k7I0BOQ.png",
         ruler = "http://paste.ee/r/H13ZL"
     }
-    SHIPS["Nebulon-B Support Frigate"] = SmallShip:new{
+    SHIPS["Nebulon-B Support Refit"] = SmallShip:new{
         mesh = "http://paste.ee/r/5jlFC",
-        diffuse = "http://i.imgur.com/WeF0Bp6.png",
+        diffuse = "http://i.imgur.com/4LZROT5.png",
         ruler = "http://paste.ee/r/xI908"
     }
     SHIPS["Nebulon-B Escort Frigate"] = SmallShip:new{
@@ -112,12 +112,12 @@ function onload()
     SHIPS["Assault Frigate Mark II A"] = MediumShip:new{
         mesh = "http://paste.ee/r/ZdluE",
         diffuse = "http://i.imgur.com/5gcQx98.png",
-        ruler = "http://paste.ee/r/RewlO"
+        ruler = "http://paste.ee/r/kmnpd"
     }
     SHIPS["Assault Frigate Mark II B"] = MediumShip:new{
         mesh = "http://paste.ee/r/ZdluE",
         diffuse = "http://i.imgur.com/T1u6SU1.png",
-        ruler = "http://paste.ee/r/RewlO"
+        ruler = "http://paste.ee/r/kmnpd"
     }
     SHIPS["MC80 Command Cruiser"] = LargeShip:new{
         mesh = "http://paste.ee/r/am8JC",
@@ -128,6 +128,16 @@ function onload()
         mesh = "http://paste.ee/r/am8JC",
         diffuse = "http://i.imgur.com/xklILcW.png",
         ruler = "http://paste.ee/r/YcTl3"
+    }
+    SHIPS["MC80 Star Cruiser"] = LargeShip:new{
+        mesh = "http://paste.ee/r/eEzbI",
+        diffuse = "http://i.imgur.com/Cb3Nexq.png",
+        ruler = "http://paste.ee/r/XjDg0" --TODO:
+    }
+    SHIPS["MC80 Battle Cruiser"] = LargeShip:new{
+        mesh = "http://paste.ee/r/eEzbI",
+        diffuse = "http://i.imgur.com/DHGrZcJ.png",
+        ruler = "http://paste.ee/r/XjDg0" --TODO:
     }
 
     SHIPS["Gozanti-class Cruisers"] = SmallShip:new{
@@ -170,6 +180,17 @@ function onload()
         diffuse = "http://i.imgur.com/BB2Rflo.png",
         ruler = "http://paste.ee/r/f1IHk"
     }
+    SHIPS["Interdictor Suppression Refit"] = MediumShip:new{
+        mesh = "http://paste.ee/r/roSj5",
+        diffuse = "http://i.imgur.com/OMoTh9y.png",
+        ruler = "http://paste.ee/r/cqUDP"
+    }
+    SHIPS["Interdictor Combat Refit"] = MediumShip:new{
+        mesh = "http://paste.ee/r/roSj5",
+        diffuse = "http://i.imgur.com/0xIlJlb.png",
+        ruler = "http://paste.ee/r/cqUDP"
+    }
+
     SHIPS["Imperial I-class Star Destroyer"] = LargeShip:new{
         mesh = "http://paste.ee/r/jrPtR",
         diffuse = "http://i.imgur.com/FrFBut6.png",
@@ -177,7 +198,7 @@ function onload()
     }
     SHIPS["Imperial II-class Star Destroyer"] = LargeShip:new{
         mesh = "http://paste.ee/r/jrPtR",
-        diffuse = "http://i.imgur.com/FrFBut6.png",
+        diffuse = "http://i.imgur.com/usykAgi.png",
         ruler = "http://paste.ee/r/6SQoL"
     }
 

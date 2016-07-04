@@ -5,12 +5,12 @@ target_rot = 0
 cmd_dir = 0
 stable_count = 0
 local ASTEROIDS = {
-    "http://paste.ee/r/Kb85g",
-    "http://paste.ee/r/J8Qv7",
-    "http://paste.ee/r/THBHI",
-    "http://paste.ee/p/iQvU1",
-    "http://paste.ee/r/J1AiA",
-    "http://paste.ee/r/inFeM"
+    "http://pastebin.com/raw/SWhJfkwB",
+    "http://pastebin.com/raw/dJTxnY50",
+    "http://pastebin.com/raw/zSSXLYZ5",
+    "http://pastebin.com/raw/z4DDMq9f",
+    "http://pastebin.com/raw/j0Xr1xsQ",
+    "http://pastebin.com/raw/ZUZuC55E"
 }
 --real_rot = 0
 function onload()
@@ -147,7 +147,9 @@ function drawButtons()
     end
     self.createButton(buildButton('Done',{click_function='Action_ClearRuler',position={0,z,0.7},width=300}))
     if #cmds>0 then
-        self.createButton(buildButton('Move',{position={0,z,0.5},width=300}))
+        if self.getVar('moved')~=true then
+            self.createButton(buildButton('Move',{position={0,z,0.5},width=300}))
+        end
         if last_pos~=nil and last_rot~=nil and last_moved~=nil then
             self.createButton(buildButton('Undo',{position={0,z,0.3},width=300}))
         end
@@ -182,6 +184,7 @@ last_pos = nil
 last_rot = nil
 last_moved = nil
 function Action_Move()
+    self.setVar('moved',true)
     local ship = self.getVar('ship')
     if ship == nil then
         ship = findNearestShip(self.getPosition(),self.getRotation()[2])
@@ -213,7 +216,7 @@ function moveTokens(ship, old_pos, old_rot)
                 local new_rot = vector.add(vector.sub(ship.getRotation(),old_rot),obj.getRotation())
                 obj.setPosition(new_pos)
                 obj.setRotation(new_rot)
-                obj.lock()
+                --obj.lock()
             end
         end
     end
@@ -224,15 +227,16 @@ function storeUndo(ship)
     last_moved = ship
 end
 function Action_Undo()
+    self.setVar('moved',false)
     local prev_pos = last_moved.getPosition()
     local prev_rot = last_moved.getRotation()
     last_moved.setPosition(last_pos)
     last_moved.setRotation(last_rot)
-    drawButtons()
     moveTokens(last_moved,prev_pos,prev_rot)
     last_moved = nil
     last_pos = nil
     last_rot = nil
+    drawButtons()
 end
 function findNearestShip(pos,rot_filter)
     local nearest
@@ -273,8 +277,12 @@ function Action_RemoveRuler()
     buildRuler(cmds)
 end
 function Action_ClearRuler()
+    self.setVar('moved',false)
     destroyRulers()
     drawButtons()
+    last_moved = nil
+    last_pos = nil
+    last_rot = nil
     self.setPosition({49,1,0})
     self.setRotation({0,0,0})
 end
