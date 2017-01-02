@@ -109,6 +109,16 @@ function onload()
         diffuse = "http://i.imgur.com/ijQ9qP3.png",
         ruler = "http://paste.ee/r/g71A1"
     }
+    SHIPS["Modified Pelta-class Command Ship"] = SmallShip:new{
+        mesh = "http://paste.ee/p/bBiGO",
+        diffuse = "http://i.imgur.com/ueQddNf.png",
+        ruler = "http://paste.ee/p/RDjaZ"
+    }
+    SHIPS["Modified Pelta-class Assault Ship"] = SmallShip:new{
+        mesh = "http://paste.ee/p/bBiGO",
+        diffuse = "http://i.imgur.com/pmh4bJR.png",
+        ruler = "http://paste.ee/p/RDjaZ"
+    }
     SHIPS["Assault Frigate Mark II A"] = MediumShip:new{
         mesh = "http://paste.ee/r/ZdluE",
         diffuse = "http://i.imgur.com/5gcQx98.png",
@@ -170,6 +180,16 @@ function onload()
         diffuse = "http://i.imgur.com/KFO7rmN.png",
         ruler = "http://paste.ee/r/PnVAt"
     }
+    SHIPS["Arquitens-class Light Cruiser"] = SmallShip:new{
+        mesh = "http://paste.ee/p/kzux7",
+        diffuse = "http://i.imgur.com/5gHlf01.png",
+        ruler = "http://paste.ee/p/vrWIm"
+    }
+    SHIPS["Arquitens-class Command Cruiser"] = SmallShip:new{
+        mesh = "http://paste.ee/p/kzux7",
+        diffuse = "http://i.imgur.com/lKZKIEM.png",
+        ruler = "http://paste.ee/p/vrWIm"
+    }
     SHIPS["Victory I-class Star Destroyer"] = MediumShip:new{
         mesh = "http://paste.ee/r/pPCJ8",
         diffuse = "http://i.imgur.com/b7CDloK.png",
@@ -211,6 +231,11 @@ function onload()
     SHIPS["B-wing Squadron"] = Squadron:new(ship)
     SHIPS["Keyan Farlander"] = Squadron:new(table.copy(ship))
     SHIPS["Keyan Farlander"].diffuse = "http://i.imgur.com/r7YB80F.png"
+    SHIPS["Ten Numb"] = Squadron:new(table.copy(ship))
+    SHIPS["Ten Numb"].diffuse = "http://i.imgur.com/r7YB80F.png"
+    SHIPS["Dagger Squadron"] = Squadron:new(table.copy(ship))
+    SHIPS["Dagger Squadron"].diffuse = "http://i.imgur.com/swXemsa.png"
+    SHIPS["Dagger Squadron"].mesh = "http://paste.ee/p/NpCQt"
     ship = {
         mesh = "http://paste.ee/r/AG2g4",
         diffuse = "http://i.imgur.com/ObUEAK5.png",
@@ -219,14 +244,25 @@ function onload()
     SHIPS["Y-wing Squadron"] = Squadron:new(ship)
     SHIPS['"Dutch" Vander'] = Squadron:new(table.copy(ship))
     SHIPS['"Dutch" Vander'].diffuse = "http://i.imgur.com/pRu0c7d.png"
+    SHIPS['Norra Wexley'] = Squadron:new(table.copy(ship))
+    SHIPS['Norra Wexley'].diffuse = "http://i.imgur.com/pRu0c7d.png"
+    SHIPS['Norra Wexley'].mesh = "http://paste.ee/p/5i0Ma"
+    SHIPS['Gold Squadron'] = Squadron:new(table.copy(ship))
+    SHIPS['Gold Squadron'].mesh = "http://paste.ee/p/5i0Ma"
+    SHIPS['Gold Squadron'].diffuse = "http://i.imgur.com/pRu0c7d.png"
     ship = {
         mesh = "http://paste.ee/r/3Wdv8",
-        diffuse = "http://i.imgur.com/i8eZHMJ.png",
+        diffuse = "http://i.imgur.com/6vlNuEY.png",
         health = 4,
         move = 5 }
     SHIPS["A-wing Squadron"] = Squadron:new(ship)
     SHIPS["Tycho Celchu"] = Squadron:new(table.copy(ship))
-    SHIPS["Tycho Celchu"].diffuse = "http://i.imgur.com/X5POA2k.png"
+    SHIPS["Tycho Celchu"].diffuse = "http://i.imgur.com/QZPi4e7.png"
+    SHIPS["Shara Bey"] = Squadron:new(table.copy(ship))
+    SHIPS["Shara Bey"].diffuse = "http://i.imgur.com/QZPi4e7.png"
+    SHIPS["Green Squadron"] = Squadron:new(table.copy(ship))
+    SHIPS["Green Squadron"].mesh = "http://paste.ee/p/ybtPs"
+    SHIPS["Green Squadron"].diffuse = "http://i.imgur.com/0awlEmY.png"
     ship = {
         mesh = "http://paste.ee/r/zjUF1",
         diffuse = "http://i.imgur.com/HHbQ8lf.png",
@@ -237,6 +273,11 @@ function onload()
     SHIPS["Luke Skywalker"].diffuse = "http://i.imgur.com/6xKSmMQ.png"
     SHIPS["Wedge Antilles"] = Squadron:new(table.copy(ship))
     SHIPS["Wedge Antilles"].diffuse = "http://i.imgur.com/6xKSmMQ.png"
+    SHIPS["Biggs Darklighter"] = Squadron:new(table.copy(ship))
+    SHIPS["Biggs Darklighter"].diffuse = "http://i.imgur.com/6xKSmMQ.png"
+    SHIPS["Rogue Squadron"] = Squadron:new(table.copy(ship))
+    SHIPS["Rogue Squadron"].diffuse = "http://i.imgur.com/6xKSmMQ.png"
+    SHIPS["Rogue Squadron"].mesh = "http://paste.ee/p/PsdOf"
     ship = {
         mesh = "http://paste.ee/r/919yT",
         diffuse = "http://i.imgur.com/P11kSne.png",
@@ -273,6 +314,42 @@ function onload()
     SHIPS["Nym"] = Squadron:new(table.copy(ship))
     SHIPS["Nym"].mesh = "http://paste.ee/r/96QNu"
     SHIPS["Nym"].diffuse = "http://i.imgur.com/QAaYYfU.png"
+    ship = {
+        mesh = "http://paste.ee/p/ZHpHT",
+        diffuse = "http://i.imgur.com/zYmUqph.png",
+        health = 3,
+        move = 3 }
+    SHIPS["Z-95 Headhunter Squadron"] = Squadron:new(ship)
+    SHIPS["Lieutenant Blount"] = Squadron:new(table.copy(ship))
+    SHIPS["Lieutenant Blount"].diffuse = "http://i.imgur.com/aTuRbPL.png"
+    ship = {
+        mesh = "http://paste.ee/p/ElhHc",
+        diffuse = "http://i.imgur.com/X9E1n2M.png",
+        health = 5,
+        move = 4 }
+    SHIPS["E-wing Squadron"] = Squadron:new(ship)
+    SHIPS["Corran Horn"] = Squadron:new(table.copy(ship))
+    SHIPS["Corran Horn"].mesh = "http://paste.ee/p/r2fsB"
+    SHIPS["Corran Horn"].diffuse = "http://i.imgur.com/3uSFKMb.png"
+    ship = {
+        mesh = "http://paste.ee/p/3QIXa",
+        diffuse = "http://i.imgur.com/5UVGuIg.png",
+        health = 8,
+        move = 3 }
+    SHIPS["VCX-100 Freighter"] = Squadron:new(ship)
+    SHIPS["Hera Syndulla"] = Squadron:new(table.copy(ship))
+    SHIPS["Hera Syndulla"].mesh = "http://paste.ee/p/3NpiT"
+    SHIPS["Hera Syndulla"].diffuse = "http://i.imgur.com/wPzX0MW.png"
+    ship = {
+        mesh = "http://paste.ee/p/L9ygS",
+        diffuse = "http://i.imgur.com/CZ3eF4M.png",
+        health = 4,
+        move = 4 }
+    SHIPS["Lancer-class Pursuit Craft"] = Squadron:new(ship)
+    SHIPS["Ketsu Onyo"] = Squadron:new(table.copy(ship))
+    SHIPS["Ketsu Onyo"].diffuse = "http://i.imgur.com/eJxMrk2.png"
+
+
 
     ship = {
         mesh = "http://paste.ee/r/Z1d7z",
@@ -284,6 +361,11 @@ function onload()
     SHIPS['"Mauler" Mithel'].diffuse = "http://i.imgur.com/aKtLAbl.png"
     SHIPS['"Howlrunner"'] = Squadron:new(table.copy(ship))
     SHIPS['"Howlrunner"'].diffuse = "http://i.imgur.com/aKtLAbl.png"
+    SHIPS['Valen Rudor'] = Squadron:new(table.copy(ship))
+    SHIPS['Valen Rudor'].diffuse = "http://i.imgur.com/aKtLAbl.png"
+    SHIPS['Black Squadron'] = Squadron:new(table.copy(ship))
+    SHIPS['Black Squadron'].diffuse = "http://i.imgur.com/aKtLAbl.png"
+    SHIPS['Black Squadron'].mesh = "http://paste.ee/p/z7soo"
     ship = {
         mesh = "http://paste.ee/r/tSt9Z",
         diffuse = "http://i.imgur.com/eonWxFU.png",
@@ -292,6 +374,11 @@ function onload()
     SHIPS["TIE Interceptor Squadron"] = Squadron:new(ship)
     SHIPS["Soontir Fel"] = Squadron:new(table.copy(ship))
     SHIPS["Soontir Fel"].diffuse = "http://i.imgur.com/19ksb4d.png"
+    SHIPS["Ciena Ree"] = Squadron:new(table.copy(ship))
+    SHIPS["Ciena Ree"].diffuse = "http://i.imgur.com/19ksb4d.png"
+    SHIPS["Saber Squadron"] = Squadron:new(table.copy(ship))
+    SHIPS["Saber Squadron"].diffuse = "http://i.imgur.com/19ksb4d.png"
+    SHIPS["Saber Squadron"].mesh = "http://paste.ee/p/GqMPV"
     ship = {
         mesh = "http://paste.ee/r/QPs1M",
         diffuse = "http://i.imgur.com/L6U7Pca.png",
@@ -300,6 +387,12 @@ function onload()
     SHIPS["TIE Bomber Squadron"] = Squadron:new(ship)
     SHIPS["Major Rhymer"] = Squadron:new(table.copy(ship))
     SHIPS["Major Rhymer"].diffuse = "http://i.imgur.com/o9KJLV8.png"
+    SHIPS["Captain Jonus"] = Squadron:new(table.copy(ship))
+    SHIPS["Captain Jonus"].diffuse = "http://i.imgur.com/o9KJLV8.png"
+    SHIPS["Captain Jonus"].mesh = "http://paste.ee/p/ekNwl"
+    SHIPS["Gamma Squadron"] = Squadron:new(table.copy(ship))
+    SHIPS["Gamma Squadron"].diffuse = "http://i.imgur.com/o9KJLV8.png"
+    SHIPS["Gamma Squadron"].mesh = "http://paste.ee/p/cFgCe"
     ship = {
         mesh = "http://paste.ee/r/5YfqM",
         diffuse = "http://i.imgur.com/VDIMZqW.png",
@@ -308,6 +401,11 @@ function onload()
     SHIPS["TIE Advanced Squadron"] = Squadron:new(ship)
     SHIPS["Darth Vader"] = Squadron:new(table.copy(ship))
     SHIPS["Darth Vader"].diffuse = "http://i.imgur.com/YJm6aoS.png"
+    SHIPS["Zertik Strom"] = Squadron:new(table.copy(ship))
+    SHIPS["Zertik Strom"].diffuse = "http://i.imgur.com/YJm6aoS.png"
+    SHIPS["Tempest Squadron"] = Squadron:new(table.copy(ship))
+    SHIPS["Tempest Squadron"].diffuse = "http://i.imgur.com/YJm6aoS.png"
+    SHIPS["Tempest Squadron"].mesh = "http://paste.ee/p/6Zar9"
     ship = {
         mesh = "http://paste.ee/r/SsZzy",
         diffuse = "http://i.imgur.com/xq6IPfk.png",
@@ -343,6 +441,41 @@ function onload()
     SHIPS["Bossk"].mesh = "http://paste.ee/r/BX64Q"
     SHIPS["Bossk"].diffuse = "http://i.imgur.com/qGvYpdJ.png"
     SHIPS["Bossk"].move = 3
+    ship = {
+        mesh = "http://paste.ee/p/VogTD",
+        diffuse = "http://i.imgur.com/lJBVPTD.png",
+        health = 4,
+        move = 4 }
+    SHIPS['TIE Phantom Squadron'] = Squadron:new(ship)
+    SHIPS['"Whisper"'] = Squadron:new(table.copy(ship))
+    SHIPS['"Whisper"'].diffuse = "http://i.imgur.com/wKQfGQs.png"
+    ship = {
+        mesh = "http://paste.ee/p/4Nnjz",
+        diffuse = "http://i.imgur.com/pXxfv23.png",
+        health = 6,
+        move = 5 }
+    SHIPS['TIE Defender Squadron'] = Squadron:new(ship)
+    SHIPS['Maarek Stele'] = Squadron:new(table.copy(ship))
+    SHIPS['Maarek Stele'].mesh = "http://paste.ee/p/hQtGH"
+    SHIPS['Maarek Stele'].diffuse = "http://i.imgur.com/2wkGtqX.png"
+    ship = {
+        mesh = "http://paste.ee/p/EriDZ",
+        diffuse = "http://i.imgur.com/VE1qnP0.png",
+        health = 6,
+        move = 3 }
+    SHIPS['Lambda-class Shuttle'] = Squadron:new(ship)
+    SHIPS['Colonel Jendon'] = Squadron:new(table.copy(ship))
+    SHIPS['Colonel Jendon'].mesh = "http://paste.ee/p/LJqy6"
+    SHIPS['Colonel Jendon'].diffuse = "http://i.imgur.com/ku8uSvD.png"
+    ship = {
+        mesh = "http://paste.ee/p/2k8Qn",
+        diffuse = "http://i.imgur.com/YQ501vt.png",
+        health = 8,
+        move = 3 }
+    SHIPS['VT-49 Decimator'] = Squadron:new(ship)
+    SHIPS['Morna Kee'] = Squadron:new(table.copy(ship))
+    SHIPS['Morna Kee'].mesh = "http://paste.ee/p/5DPYJ"
+    SHIPS['Morna Kee'].diffuse = "http://i.imgur.com/JHZ5Ig0.png"
 
     for _,ship in ipairs(getAllObjects()) do
         if ship.tag == 'Figurine' then

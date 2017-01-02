@@ -140,7 +140,7 @@ function moveChildren()
     end
 end
 function drawButtons()
-    self.clearButtons()
+    clearButtons(self)
     local z = 0.20
     if #cmds<4 then
         self.createButton(buildButton('+',{click_function='Action_AddRuler',position={-0.2,z,0.9}}))
@@ -398,6 +398,14 @@ function moveChild(this, index)
     child.setRotation({0,rot+new_rot,0 })
     if cmds[index+1]~=nil then
         moveChild(child, index+1)
+    end
+end
+function clearButtons(object)
+    --this is a workaround for obj.clearButtons() being broken as of v7.10
+    if object.getButtons() ~= nil then
+        for i=#object.getButtons()-1,0,-1 do
+            object.removeButton(i)
+        end
     end
 end
 vector = {}

@@ -389,7 +389,7 @@ function drawShipButtons(ship)
 --    if name:match " MR$" then index = 5 ship.setVar('size',5) end
 --    if name:match " LR$" then index = 6 ship.setVar('size',6) end
     if index~=nil then
-        ship.clearButtons()
+        clearButtons(ship)
         local left_pos = vector.add(vector.scale(ship_size[index],vector.onedividedby(ship.getScale())),{-0.2,0.53,-0.3})
         local right_pos = vector.scale(left_pos, {-1,1,1})
         local back_left_pos = {left_pos[1],0.53,-left_pos[3]}
@@ -451,7 +451,7 @@ function getSize(ship)
 --    return size
 end
 function updateSquadButtons(ship)
-    ship.clearButtons()
+    clearButtons(ship)
     local state = ship.getVar('state')
 --    if state ~= "A" then
     local y = 0.3
@@ -510,7 +510,7 @@ function isSquad(ship)
 end
 squad_move_rulers = {}
 function spawnSquadRuler(squad,type)
-    squad.clearButtons()
+    clearButtons(squad)
     if type==SQUAD_MOVE_RULER then
         squad.unlock()
         squad.createButton(buildButton("Undo",{position={0,0.3,0.2},width=400,font_size=100},squad_button_def))
@@ -591,6 +591,13 @@ function onObjectDropped( player_color, dropped_object )
             dropped_object.setRotationSmooth({0,ship.getRotation()[2]+180,0})
             dropped_object.lock()
             dropped_object.setVar('dropped',true)
+            local color = stringColorToRGB(player_color)
+            if player_color=="White" then
+                color.r = 0.4
+                color.g = 0.4
+                color.b = 0.4
+            end
+            dropped_object.setColorTint({1-(1-color.r)/2,1-(1-color.g)/2,1-(1-color.b)/2})
         end
     end
 end
@@ -599,9 +606,11 @@ function findShip(position)
         if ship.tag == "Figurine" then
             local offset = vector.rotate(vector.sub(position,ship.getPosition()),-ship.getRotation()[2])
             local size = ship_size[ship.getVar('size')]
-            local isOnBase = math.abs(offset[1])<math.abs(size[1]) and math.abs(offset[3])<math.abs(size[3])
-            if isOnBase then
-                return ship
+            if size ~=nil then
+                local isOnBase = math.abs(offset[1])<math.abs(size[1]) and math.abs(offset[3])<math.abs(size[3])
+                if isOnBase then
+                    return ship
+                end
             end
         end
     end
@@ -659,6 +668,14 @@ function buildButton(label, def, defaults)
     if def.click_function==nil then def.click_function = 'Action_'..label end
     if def.function_owner==nil then def.function_owner = self end
     return {['click_function'] = def.click_function, ['function_owner'] = def.function_owner, ['label'] = label, ['position'] = def.position, ['rotation'] =  def.rotation, ['width'] = def.width, ['height'] = def.height, ['font_size'] = def.font_size}
+end
+function clearButtons(object)
+    --this is a workaround for obj.clearButtons() being broken as of v7.10
+    if object.getButtons() ~= nil then
+        for i=#object.getButtons()-1,0,-1 do
+            object.removeButton(i)
+        end
+    end
 end
 vector = {}
 function vector.length(v)
