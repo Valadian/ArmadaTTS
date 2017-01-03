@@ -71,12 +71,12 @@ SHIPS = {}
 function onload()
     SHIPS["GR-75 Medium Transports"] = SmallShip:new{
         mesh = "http://paste.ee/r/b9fTk",
-        diffuse = "http://i.imgur.com/4TEZh87.png",
+        diffuse = "http://i.imgur.com/2A2pAEI.png",
         ruler = "http://paste.ee/r/FSip2"
     }
     SHIPS["GR-75 Combat Retrofits"] = SmallShip:new{
         mesh = "http://paste.ee/r/b9fTk",
-        diffuse = "http://i.imgur.com/klU4S7J.png",
+        diffuse = "http://i.imgur.com/dO7rAWL.png",
         ruler = "http://paste.ee/r/FSip2"
     }
     SHIPS["CR90 Corvette A"] = SmallShip:new{
@@ -111,12 +111,12 @@ function onload()
     }
     SHIPS["Modified Pelta-class Command Ship"] = SmallShip:new{
         mesh = "http://paste.ee/p/bBiGO",
-        diffuse = "http://i.imgur.com/ueQddNf.png",
+        diffuse = "http://i.imgur.com/KIlZlxH.png",
         ruler = "http://paste.ee/p/RDjaZ"
     }
     SHIPS["Modified Pelta-class Assault Ship"] = SmallShip:new{
         mesh = "http://paste.ee/p/bBiGO",
-        diffuse = "http://i.imgur.com/pmh4bJR.png",
+        diffuse = "http://i.imgur.com/erI0mWb.png",
         ruler = "http://paste.ee/p/RDjaZ"
     }
     SHIPS["Assault Frigate Mark II A"] = MediumShip:new{
@@ -152,12 +152,12 @@ function onload()
 
     SHIPS["Gozanti-class Cruisers"] = SmallShip:new{
         mesh = "http://paste.ee/r/a4Qg8",
-        diffuse = "http://i.imgur.com/NGUN4ga.png",
+        diffuse = "http://i.imgur.com/98SoFSS.png",
         ruler = "http://paste.ee/r/jbTlM"
     }
     SHIPS["Gozanti-class Assault Carriers"] = SmallShip:new{
         mesh = "http://paste.ee/r/a4Qg8",
-        diffuse = "http://i.imgur.com/e5fkNdt.png",
+        diffuse = "http://i.imgur.com/US2K0XY.png",
         ruler = "http://paste.ee/r/jbTlM"
     }
     SHIPS["Raider I-class Corvette"] = SmallShip:new{
@@ -182,12 +182,12 @@ function onload()
     }
     SHIPS["Arquitens-class Light Cruiser"] = SmallShip:new{
         mesh = "http://paste.ee/p/kzux7",
-        diffuse = "http://i.imgur.com/5gHlf01.png",
+        diffuse = "http://i.imgur.com/KAGRy5z.png",
         ruler = "http://paste.ee/p/vrWIm"
     }
     SHIPS["Arquitens-class Command Cruiser"] = SmallShip:new{
         mesh = "http://paste.ee/p/kzux7",
-        diffuse = "http://i.imgur.com/lKZKIEM.png",
+        diffuse = "http://i.imgur.com/ZgSIjGw.png",
         ruler = "http://paste.ee/p/vrWIm"
     }
     SHIPS["Victory I-class Star Destroyer"] = MediumShip:new{
