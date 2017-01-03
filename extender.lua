@@ -2,10 +2,9 @@ local play_pos = {-53.91035, 0.9,0.0399617 } --0.85507
 local stored_pos = {-35.96619, -2, 0.34441}
 
 local tokens = {'2c6267','79d121','68abfc','c09d88','36f595','895e91','fccd7e','f11694',
-'8e9ead','0da18e','435013','7c26e3','6754db','8623c2','98ac21','e1ccd2','2f8c52','622190',
-'71ad5b','3f7cd5','8b0000'}
+'8e9ead','0da18e','435013','7c26e3','6754db','8623c2','98ac21','25a8a0'}
 
-local offset = {99,0,-10}
+local offset = {99,0,-12}
 
 local damage_offset = {80,0,0}
 local damage1_id = 'f21e8e'
@@ -45,7 +44,7 @@ function store()
     moveIdsByOffset({damage1_id,damage2_id},vector.neg(damage_offset),-1)
     moveIdsByOffset({mission_id},vector.neg(mission_offset),-1)
     moveIdsByOffset({init_id},vector.neg(init_offset),-1)
-    self.interactable = true
+--    self.interactable = true
 end
 
 function use()

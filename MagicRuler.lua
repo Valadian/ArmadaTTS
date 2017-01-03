@@ -12,6 +12,10 @@ local ASTEROIDS = {
     "http://pastebin.com/raw/j0Xr1xsQ",
     "http://pastebin.com/raw/ZUZuC55E"
 }
+local ASTEROID_TOKENS = {
+    "http://i.imgur.com/KWkWB6p.png",
+    "http://i.imgur.com/Zdz7dZF.png"
+}
 --real_rot = 0
 function onload()
     drawButtons()
@@ -207,7 +211,7 @@ ship_size = {
 }
 function moveTokens(ship, old_pos, old_rot)
     for _,obj in ipairs(getAllObjects()) do
-        if obj.tag~="Figurine" and not table.contains(ASTEROIDS,obj.getCustomObject().mesh) and obj~=self then
+        if obj.tag~="Figurine" and not table.contains(ASTEROIDS,obj.getCustomObject().mesh) and not table.contains(ASTEROID_TOKENS,obj.getCustomObject().image) and obj~=self then
             local offset = vector.rotate(vector.sub(obj.getPosition(),old_pos),-old_rot[2])
             local size = ship_size[ship.getVar('size')]
             if math.abs(offset[1])<math.abs(size[1]) and math.abs(offset[3])<math.abs(size[3]) then
