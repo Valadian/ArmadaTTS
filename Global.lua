@@ -397,6 +397,7 @@ function drawShipButtons(ship)
         ship.createButton(buildRelativeButton(ship, "M",{click_function="Action_ruler_left",position=left_pos},ship_button_def))
         ship.createButton(buildRelativeButton(ship, "M",{click_function="Action_ruler_right",position=right_pos},ship_button_def))
         ship.createButton(buildRelativeButton(ship, "R",{click_function="Action_attack_ruler",position=back_left_pos},ship_button_def))
+        ship.createButton(buildRelativeButton(ship, "r",{click_function="Action_15range_ruler",position=vector.add(back_left_pos,{0,0,0.4})},ship_button_def))
         ship.createButton(buildRelativeButton(ship, "C",{click_function="Action_cmds",position=back_right_pos},ship_button_def))
     end
 end
@@ -405,8 +406,34 @@ ATTACK_RULERS = {
     "http://paste.ee/r/Gwytv",
     "http://paste.ee/r/yBgAR"
 }
+RANGE_RULER_MESH = {
+    "http://paste.ee/p/zS6HS",
+    "http://paste.ee/p/j8OxD",
+    "https://paste.ee/p/ayQRT"
+}
 function Action_cmds(ship)
     printCmds(ship)
+end
+function Action_15range_ruler(ship)
+    local ruler = ship.getVar('ruler')
+    if ruler == nil then
+        ship.lock()
+        --local mesh = ship.getVar("rulerMesh")
+        local obj_parameters = {}
+        obj_parameters.type = 'Custom_Model'
+        obj_parameters.position = ship.getPosition()
+        obj_parameters.rotation = ship.getRotation()
+        local newruler = spawnObject(obj_parameters)
+        local custom = {}
+        custom.mesh = RANGE_RULER_MESH[ship.getVar('size')]
+        custom.collider = ATTACK_RULERS[ship.getVar('size')]
+        newruler.setCustomObject(custom)
+        newruler.lock()
+        ship.setVar('ruler',newruler)
+    else
+        ruler.destruct()
+        ship.setVar('ruler',nil)
+    end
 end
 function Action_attack_ruler(ship)
     local ruler = ship.getVar('ruler')
