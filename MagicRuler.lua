@@ -173,6 +173,17 @@ function drawButtons()
         end
         y = y + 0.25
     end
+    local maneuver = self.getTable("maneuver")
+    if maneuver~=nil then
+
+        --for i,speed in ipairs(maneuver) do
+        if (#maneuver >= #cmds) and (#cmds > 0) then
+            for j,segment in ipairs(maneuver[#cmds]) do
+                self.createButton(buildButton(segment,{position={0.5,z,0.95+0.25*j}})) --1-i*0.2
+            end
+        end
+        --end
+    end
 end
 function Action_RulerLeft1() RotateRuler(1,-1) end
 function Action_RulerLeft2() RotateRuler(2,-1) end

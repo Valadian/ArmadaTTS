@@ -35,6 +35,8 @@ function onload(save_string)
         for i, shipdata in pairs(data) do
             local obj = getObjectFromGUID(shipdata["GUID"])
             obj.setVar('owner',shipdata["owner"])
+            obj.setVar('rulerMesh',shipdata["rulerMesh"])
+            obj.setTable('maneuver',shipdata["maneuver"])
         end
     end
 end
@@ -44,6 +46,8 @@ function onSave()
         if ship.tag == "Figurine" and ship.getVar('owner')~=nil then
             local data = {}
             data["GUID"] = ship.getGUID()
+            data["rulerMesh"] = ship.getVar('rulerMesh')
+            data["maneuver"] = ship.getTable('maneuver')
             data["owner"] = ship.getVar('owner')
             save[ship.getGUID()] = data
         end
@@ -670,6 +674,7 @@ function moveRuler(ship, direction)
     ruler.setRotation({0,rot,0 })
     ruler.lock()
     ruler.setVar('ship',ship)
+    ruler.setTable('maneuver',ship.getTable('maneuver'))
 end
 ship_button_def = {position = {0,0.3,0},rotation = {0,180,0},height = 200,width = 200,font_size = 200}
 squad_button_def = {position = {0,0.17,0},rotation = {0,0,0},height = 150,width = 125,font_size = 150}

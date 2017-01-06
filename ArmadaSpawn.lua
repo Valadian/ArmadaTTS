@@ -22,7 +22,8 @@ SmallShip = {
     collider = "http://paste.ee/r/eDbf1",
     convex = true,
     type = 1,
-    material = 3
+    material = 3,
+    maneuver = {}
 }
 function SmallShip:new (o)
     o = o or {}
@@ -34,7 +35,8 @@ MediumShip = {
     collider = "http://paste.ee/r/6LYTT",
     convex = true,
     type = 1,
-    material = 3
+    material = 3,
+    maneuver = {}
 }
 function MediumShip:new (o)
     o = o or {}
@@ -46,7 +48,8 @@ LargeShip = {
     collider = "http://paste.ee/r/a7mfW",
     convex = true,
     type = 1,
-    material = 3
+    material = 3,
+    maneuver = {}
 }
 function LargeShip:new (o)
     o = o or {}
@@ -72,154 +75,185 @@ function onload()
     SHIPS["GR-75 Medium Transports"] = SmallShip:new{
         mesh = "http://paste.ee/r/b9fTk",
         diffuse = "http://i.imgur.com/2A2pAEI.png",
-        ruler = "http://paste.ee/r/FSip2"
+        ruler = "http://paste.ee/r/FSip2",
+        maneuver = {{"II"},{"I","II"},{"-","I","II"}}
     }
     SHIPS["GR-75 Combat Retrofits"] = SmallShip:new{
         mesh = "http://paste.ee/r/b9fTk",
         diffuse = "http://i.imgur.com/dO7rAWL.png",
-        ruler = "http://paste.ee/r/FSip2"
+        ruler = "http://paste.ee/r/FSip2",
+        maneuver = {{"II"},{"I","II"},{"-","I","II"}}
     }
     SHIPS["CR90 Corvette A"] = SmallShip:new{
         mesh = "http://paste.ee/r/ciL22",
         diffuse = "http://i.imgur.com/0kAY3h2.png",
-        ruler = "http://paste.ee/r/H13ZL"
+        ruler = "http://paste.ee/r/H13ZL",
+        maneuver = {{"II"},{"I","II"},{"-","I","II"},{"-","I","I","II"}}
     }
     SHIPS["CR90 Corvette B"] = SmallShip:new{
         mesh = "http://paste.ee/r/ciL22",
         diffuse = "http://i.imgur.com/k7I0BOQ.png",
-        ruler = "http://paste.ee/r/H13ZL"
+        ruler = "http://paste.ee/r/H13ZL",
+        maneuver = {{"II"},{"I","II"},{"-","I","II"},{"-","I","I","II"}}
     }
     SHIPS["Nebulon-B Support Refit"] = SmallShip:new{
         mesh = "http://paste.ee/r/5jlFC",
         diffuse = "http://i.imgur.com/4LZROT5.png",
-        ruler = "http://paste.ee/r/xI908"
+        ruler = "http://paste.ee/r/xI908",
+        maneuver = {{"II"},{"I","I"},{"-","I","II"}}
     }
     SHIPS["Nebulon-B Escort Frigate"] = SmallShip:new{
         mesh = "http://paste.ee/r/5jlFC",
         diffuse = "http://i.imgur.com/avcsD9I.png",
-        ruler = "http://paste.ee/r/xI908"
+        ruler = "http://paste.ee/r/xI908",
+        maneuver = {{"II"},{"I","I"},{"-","I","II"}}
     }
     SHIPS["MC30c Scout Frigate"] = SmallShip:new{
         mesh = "http://paste.ee/r/oErZc",
         diffuse = "http://i.imgur.com/u3vlpCP.png",
-        ruler = "http://paste.ee/r/g71A1"
+        ruler = "http://paste.ee/r/g71A1",
+        maneuver = {{"I"},{"I","I"},{"-","I","II"},{"-","I","I","-"}}
     }
     SHIPS["MC30c Torpedo Frigate"] = SmallShip:new{
         mesh = "http://paste.ee/r/oErZc",
         diffuse = "http://i.imgur.com/ijQ9qP3.png",
-        ruler = "http://paste.ee/r/g71A1"
+        ruler = "http://paste.ee/r/g71A1",
+        maneuver = {{"I"},{"I","I"},{"-","I","II"},{"-","I","I","-"}}
     }
     SHIPS["Modified Pelta-class Command Ship"] = SmallShip:new{
         mesh = "http://paste.ee/p/bBiGO",
         diffuse = "http://i.imgur.com/KIlZlxH.png",
-        ruler = "http://paste.ee/p/RDjaZ"
+        ruler = "http://paste.ee/p/RDjaZ",
+        maneuver = {{"II"},{"I","I"}}
     }
     SHIPS["Modified Pelta-class Assault Ship"] = SmallShip:new{
         mesh = "http://paste.ee/p/bBiGO",
         diffuse = "http://i.imgur.com/erI0mWb.png",
-        ruler = "http://paste.ee/p/RDjaZ"
+        ruler = "http://paste.ee/p/RDjaZ",
+        maneuver = {{"II"},{"I","I"}}
     }
     SHIPS["Assault Frigate Mark II A"] = MediumShip:new{
         mesh = "http://paste.ee/r/ZdluE",
         diffuse = "http://i.imgur.com/5gcQx98.png",
-        ruler = "http://paste.ee/r/kmnpd"
+        ruler = "http://paste.ee/r/kmnpd",
+        maneuver = {{"I"},{"I","I"},{"-","I","I"}}
     }
     SHIPS["Assault Frigate Mark II B"] = MediumShip:new{
         mesh = "http://paste.ee/r/ZdluE",
         diffuse = "http://i.imgur.com/T1u6SU1.png",
-        ruler = "http://paste.ee/r/kmnpd"
+        ruler = "http://paste.ee/r/kmnpd",
+        maneuver = {{"I"},{"I","I"},{"-","I","I"}}
     }
     SHIPS["MC80 Command Cruiser"] = LargeShip:new{
         mesh = "http://paste.ee/r/am8JC",
         diffuse = "http://i.imgur.com/pW1iM1a.png",
-        ruler = "http://paste.ee/r/YcTl3"
+        ruler = "http://paste.ee/r/YcTl3",
+        maneuver = {{"I"},{"I","I"}}
     }
     SHIPS["MC80 Assault Cruiser"] = LargeShip:new{
         mesh = "http://paste.ee/r/am8JC",
         diffuse = "http://i.imgur.com/xklILcW.png",
-        ruler = "http://paste.ee/r/YcTl3"
+        ruler = "http://paste.ee/r/YcTl3",
+        maneuver = {{"I"},{"I","I"}}
     }
     SHIPS["MC80 Star Cruiser"] = LargeShip:new{
         mesh = "http://paste.ee/r/eEzbI",
         diffuse = "http://i.imgur.com/Cb3Nexq.png",
-        ruler = "http://paste.ee/r/XjDg0" --TODO:
+        ruler = "http://paste.ee/r/XjDg0",
+        maneuver = {{"I"},{"I","-"},{"I","-","I"}}
     }
     SHIPS["MC80 Battle Cruiser"] = LargeShip:new{
         mesh = "http://paste.ee/r/eEzbI",
         diffuse = "http://i.imgur.com/DHGrZcJ.png",
-        ruler = "http://paste.ee/r/XjDg0" --TODO:
+        ruler = "http://paste.ee/r/XjDg0",
+        maneuver = {{"I"},{"I","-"},{"I","-","I"}}
     }
 
     SHIPS["Gozanti-class Cruisers"] = SmallShip:new{
         mesh = "http://paste.ee/r/a4Qg8",
         diffuse = "http://i.imgur.com/98SoFSS.png",
-        ruler = "http://paste.ee/r/jbTlM"
+        ruler = "http://paste.ee/r/jbTlM",
+        maneuver = {{"II"},{"I","I"},{"I","I","-"}}
     }
     SHIPS["Gozanti-class Assault Carriers"] = SmallShip:new{
         mesh = "http://paste.ee/r/a4Qg8",
         diffuse = "http://i.imgur.com/US2K0XY.png",
-        ruler = "http://paste.ee/r/jbTlM"
+        ruler = "http://paste.ee/r/jbTlM",
+        maneuver = {{"II"},{"I","I"},{"I","I","-"}}
     }
     SHIPS["Raider I-class Corvette"] = SmallShip:new{
         mesh = "http://paste.ee/r/qsGM3",
         diffuse = "http://i.imgur.com/uO4qw7R.png",
-        ruler = "http://paste.ee/r/JwnWk"
+        ruler = "http://paste.ee/r/JwnWk",
+        maneuver = {{"II"},{"II","II"},{"-","I","I"},{"-","I","I","I"}}
     }
     SHIPS["Raider II-class Corvette"] = SmallShip:new{
         mesh = "http://paste.ee/r/qsGM3",
         diffuse = "http://i.imgur.com/9uZDh0o.png",
-        ruler = "http://paste.ee/r/JwnWk"
+        ruler = "http://paste.ee/r/JwnWk",
+        maneuver = {{"II"},{"II","II"},{"-","I","I"},{"-","I","I","I"}}
     }
     SHIPS["Gladiator I-class Star Destroyer"] = SmallShip:new{
         mesh = "http://paste.ee/r/8150f",
         diffuse = "http://i.imgur.com/CBFTsv3.png",
-        ruler = "http://paste.ee/r/PnVAt"
+        ruler = "http://paste.ee/r/PnVAt",
+        maneuver = {{"II"},{"I","I"},{"-","I","I"}}
     }
     SHIPS["Gladiator II-class Star Destroyer"] = SmallShip:new{
         mesh = "http://paste.ee/r/8150f",
         diffuse = "http://i.imgur.com/KFO7rmN.png",
-        ruler = "http://paste.ee/r/PnVAt"
+        ruler = "http://paste.ee/r/PnVAt",
+        maneuver = {{"II"},{"I","I"},{"-","I","I"}}
     }
     SHIPS["Arquitens-class Light Cruiser"] = SmallShip:new{
         mesh = "http://paste.ee/p/kzux7",
         diffuse = "http://i.imgur.com/KAGRy5z.png",
-        ruler = "http://paste.ee/p/vrWIm"
+        ruler = "http://paste.ee/p/wZK5w",
+        maneuver = {{"II"},{"-","II"},{"-","-","II"}}
     }
     SHIPS["Arquitens-class Command Cruiser"] = SmallShip:new{
         mesh = "http://paste.ee/p/kzux7",
         diffuse = "http://i.imgur.com/ZgSIjGw.png",
-        ruler = "http://paste.ee/p/vrWIm"
+        ruler = "http://paste.ee/p/wZK5w",
+        maneuver = {{"II"},{"-","II"},{"-","-","II"}}
+        --maneuver = "II|-,II|-,-,II"
     }
     SHIPS["Victory I-class Star Destroyer"] = MediumShip:new{
         mesh = "http://paste.ee/r/pPCJ8",
         diffuse = "http://i.imgur.com/b7CDloK.png",
-        ruler = "http://paste.ee/r/f1IHk"
+        ruler = "http://paste.ee/r/f1IHk",
+        maneuver = {{"I"},{"-","I"}}
     }
     SHIPS["Victory II-class Star Destroyer"] = MediumShip:new{
         mesh = "http://paste.ee/r/pPCJ8",
         diffuse = "http://i.imgur.com/BB2Rflo.png",
-        ruler = "http://paste.ee/r/f1IHk"
+        ruler = "http://paste.ee/r/f1IHk",
+        maneuver = {{"I"},{"-","I"}}
     }
     SHIPS["Interdictor Suppression Refit"] = MediumShip:new{
         mesh = "http://paste.ee/r/roSj5",
         diffuse = "http://i.imgur.com/OMoTh9y.png",
-        ruler = "http://paste.ee/r/cqUDP"
+        ruler = "http://paste.ee/r/cqUDP",
+        maneuver = {{"I"},{"I","I"}}
     }
     SHIPS["Interdictor Combat Refit"] = MediumShip:new{
         mesh = "http://paste.ee/r/roSj5",
         diffuse = "http://i.imgur.com/0xIlJlb.png",
-        ruler = "http://paste.ee/r/cqUDP"
+        ruler = "http://paste.ee/r/cqUDP",
+        maneuver = {{"I"},{"I","I"}}
     }
 
     SHIPS["Imperial I-class Star Destroyer"] = LargeShip:new{
         mesh = "http://paste.ee/r/jrPtR",
         diffuse = "http://i.imgur.com/FrFBut6.png",
-        ruler = "http://paste.ee/r/6SQoL"
+        ruler = "http://paste.ee/r/6SQoL",
+        maneuver = {{"I"},{"I","I"},{"-","I","I"}}
     }
     SHIPS["Imperial II-class Star Destroyer"] = LargeShip:new{
         mesh = "http://paste.ee/r/jrPtR",
         diffuse = "http://i.imgur.com/usykAgi.png",
-        ruler = "http://paste.ee/r/6SQoL"
+        ruler = "http://paste.ee/r/6SQoL",
+        maneuver = {{"I"},{"I","I"},{"-","I","I"}}
     }
 
 
@@ -514,6 +548,7 @@ function spawnShip(name, pos,count)
 
             ship.setName(name)
             ship.setVar("rulerMesh",ship_def.ruler)
+            ship.setTable("maneuver",ship_def.maneuver)
         end
     --    end
     --end
