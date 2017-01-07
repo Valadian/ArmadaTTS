@@ -220,13 +220,16 @@ ship_size = {
     {1.201,0,2.008},
     {1.496,0,2.539}
 }
+moved_objects = {}
 function moveTokens(ship, old_pos, old_rot)
+    moved_objects = {}
     for _,obj in ipairs(getAllObjects()) do
         if obj.tag~="Figurine" and not table.contains(ASTEROIDS,obj.getCustomObject().mesh) and not table.contains(ASTEROID_TOKENS,obj.getCustomObject().image) and obj~=self then
             local offset = vector.rotate(vector.sub(obj.getPosition(),old_pos),-old_rot[2])
             local size = ship_size[ship.getVar('size')]
             if math.abs(offset[1])<math.abs(size[1]) and math.abs(offset[3])<math.abs(size[3]) then
                 -- WAS ON BASE
+                table.insert(moved_objects,obj)
                 local new_pos = vector.add(ship.getPosition(),vector.rotate(offset, ship.getRotation()[2]))
                 local new_rot = vector.add(vector.sub(ship.getRotation(),old_rot),obj.getRotation())
                 obj.setPosition(new_pos)
@@ -235,6 +238,17 @@ function moveTokens(ship, old_pos, old_rot)
             end
         end
     end
+end
+function undoMoveTokens(ship, old_pos, old_rot)
+    for _,obj in ipairs(moved_objects) do
+        local offset = vector.rotate(vector.sub(obj.getPosition(),old_pos),-old_rot[2])
+        --local size = ship_size[ship.getVar('size')]
+        local new_pos = vector.add(ship.getPosition(),vector.rotate(offset, ship.getRotation()[2]))
+        local new_rot = vector.add(vector.sub(ship.getRotation(),old_rot),obj.getRotation())
+        obj.setPosition(new_pos)
+        obj.setRotation(new_rot)
+    end
+    moved_objects = {}
 end
 function storeUndo(ship)
     last_pos = ship.getPosition()
@@ -247,7 +261,7 @@ function Action_Undo()
     local prev_rot = last_moved.getRotation()
     last_moved.setPosition(last_pos)
     last_moved.setRotation(last_rot)
-    moveTokens(last_moved,prev_pos,prev_rot)
+    undoMoveTokens(last_moved,prev_pos,prev_rot)
     last_moved = nil
     last_pos = nil
     last_rot = nil
