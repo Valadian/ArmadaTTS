@@ -17,6 +17,10 @@ local CMD_MESHES = {
 local SQUAD = "http://paste.ee/r/nAMCQ"
 local A_COLOR = {0,0.5,1.0 }
 local B_COLOR = {1.0,0.25,0}
+--local A_SECONDARY_COLOR = {0.5,0,1.0 }
+--local B_SECONDARY_COLOR = {1.0,1.0,0}
+local A_SECONDARY_COLOR = {0,0.3,0.375 }
+local B_SECONDARY_COLOR = {0.375,0.3,0}
 ruler = nil
 shield_dials = nil
 function onload(save_string)
@@ -35,6 +39,7 @@ function onload(save_string)
         for i, shipdata in pairs(data) do
             local obj = getObjectFromGUID(shipdata["GUID"])
             obj.setVar('owner',shipdata["owner"])
+            obj.setVar('team',shipdata["team"])
             obj.setVar('rulerMesh',shipdata["rulerMesh"])
             obj.setTable('maneuver',shipdata["maneuver"])
         end
@@ -49,6 +54,7 @@ function onSave()
             data["rulerMesh"] = ship.getVar('rulerMesh')
             data["maneuver"] = ship.getTable('maneuver')
             data["owner"] = ship.getVar('owner')
+            data["team"] = ship.getVar('team')
             save[ship.getGUID()] = data
         end
     end
@@ -499,8 +505,15 @@ function updateSquadButtons(ship)
 end
 function updateColor(squad)
     local state = squad.getVar('state')
-    if state == "A" then squad.setColorTint(A_COLOR) --({0.3,1.0,1.0}) -- {0.78,0.86,0.99} C9DCFD
-    elseif state == "B" then squad.setColorTint(B_COLOR) --({1.0,0.9,0.4})  -- {0.52,0.29,0.19} FD8A5B
+    local team = squad.getVar('team')
+    if team == 2 then
+        if state == "A" then squad.setColorTint(A_SECONDARY_COLOR) --({0.3,1.0,1.0}) -- {0.78,0.86,0.99} C9DCFD
+        elseif state == "B" then squad.setColorTint(B_SECONDARY_COLOR) --({1.0,0.9,0.4})  -- {0.52,0.29,0.19} FD8A5B
+        end
+    else
+        if state == "A" then squad.setColorTint(A_COLOR)
+        elseif state == "B" then squad.setColorTint(B_COLOR)
+        end
     end
 end
 function Action_Activate(squad)
@@ -590,6 +603,16 @@ function onObjectDropped( player_color, dropped_object )
     local droppos = dropped_object.getPosition()
     if dropped_object.tag == "Figurine" then
         dropped_object.setVar('owner',player_color)
+        if isSquad(dropped_object) then
+            local team = 1
+            if table.contains({"Green", "Teal", "Blue"},player_color) then
+                team = 2
+            end
+            if dropped_object.getVar('team')==nil then
+                dropped_object.setVar('team',team)
+                updateColor(dropped_object)
+            end
+        end
     end
     local custom = dropped_object.getCustomObject()
     local isDial = custom~=nil and table.contains(CMD_MESHES,custom.diffuse)
@@ -608,7 +631,7 @@ function onObjectDropped( player_color, dropped_object )
                 if otherIsDial and isOnBase and token~=dropped_object then
                     --printToAll("moving: "..token.getGUID(),{1,0,0})
                     local pos = token.getPosition()
-                    token.setPosition({pos[1],pos[2]-1.43+1.0+droppos[2],pos[3]})
+                    token.setPosition({pos[1],pos[2]-1.43+1.0+droppos[2]+0.2,pos[3]})
                 end
             end
             --printToAll("DialDroppedNearOwnedShip",{0,1,0})
@@ -620,7 +643,7 @@ function onObjectDropped( player_color, dropped_object )
             local rotoff = vector.rotate(offset,ship.getRotation()[2])
             dropped_object.setPositionSmooth({shippos[1]+rotoff[1],droppos[2],shippos[3]+rotoff[3]}) --shippos[2]+0.807
             dropped_object.setRotationSmooth({0,ship.getRotation()[2]+180,0})
-            dropped_object.lock()
+--            dropped_object.lock()
             dropped_object.setVar('dropped',true)
             local color = stringColorToRGB(player_color)
             if player_color=="White" then

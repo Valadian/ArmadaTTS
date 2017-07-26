@@ -145,7 +145,7 @@ function moveChildren()
 end
 function drawButtons()
     clearButtons(self)
-    local z = 0.20
+    local z = 0.25
     if #cmds<4 then
         self.createButton(buildButton('+',{click_function='Action_AddRuler',position={-0.2,z,0.9}}))
     end
