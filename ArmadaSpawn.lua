@@ -132,6 +132,20 @@ function onload()
         ruler = "http://paste.ee/p/RDjaZ",
         maneuver = {{"II"},{"I","I"}}
     }
+
+    SHIPS["Hammerhead Scout Corvette"] = SmallShip:new{
+        mesh = "https://paste.ee/p/1zKki",
+        diffuse = "http://i.imgur.com/m9jyRy6.png",
+        ruler = "https://paste.ee/p/DA9vu",
+        maneuver = {{"II"},{"II","I"},{"I","I","-"}}
+    }
+    SHIPS["Hammerhead Torpedo Corvette"] = SmallShip:new{
+        mesh = "https://paste.ee/p/1zKki",
+        diffuse = "http://i.imgur.com/21escRb.png",
+        ruler = "https://paste.ee/p/DA9vu",
+        maneuver = {{"II"},{"II","I"},{"I","I","-"}}
+    }
+
     SHIPS["Assault Frigate Mark II A"] = MediumShip:new{
         mesh = "http://paste.ee/r/ZdluE",
         diffuse = "http://i.imgur.com/5gcQx98.png",
@@ -206,14 +220,14 @@ function onload()
         maneuver = {{"II"},{"I","I"},{"-","I","I"}}
     }
     SHIPS["Arquitens-class Light Cruiser"] = SmallShip:new{
-        mesh = "http://paste.ee/p/kzux7",
-        diffuse = "http://i.imgur.com/KAGRy5z.png",
+        mesh = "https://paste.ee/p/i5otm",
+        diffuse = "http://i.imgur.com/QAy7MNw.png",
         ruler = "http://paste.ee/p/wZK5w",
         maneuver = {{"II"},{"-","II"},{"-","-","II"}}
     }
     SHIPS["Arquitens-class Command Cruiser"] = SmallShip:new{
-        mesh = "http://paste.ee/p/kzux7",
-        diffuse = "http://i.imgur.com/ZgSIjGw.png",
+        mesh = "https://paste.ee/p/i5otm",
+        diffuse = "http://i.imgur.com/yxQ3F2V.png",
         ruler = "http://paste.ee/p/wZK5w",
         maneuver = {{"II"},{"-","II"},{"-","-","II"}}
         --maneuver = "II|-,II|-,-,II"
@@ -241,6 +255,18 @@ function onload()
         diffuse = "http://i.imgur.com/0xIlJlb.png",
         ruler = "http://paste.ee/r/cqUDP",
         maneuver = {{"I"},{"I","I"}}
+    }
+    SHIPS["Quasar Fire I-class Cruiser-Carrier"] = MediumShip:new{
+        mesh = "https://paste.ee/p/aoLPn",
+        diffuse = "http://i.imgur.com/WyRNlCF.png",
+        ruler = "https://paste.ee/p/wOQfL",
+        maneuver = {{"II"},{"I","I"},{"-","I","I"}}
+    }
+    SHIPS["Quasar Fire II-class Cruiser-Carrier"] = MediumShip:new{
+        mesh = "https://paste.ee/p/aoLPn",
+        diffuse = "http://i.imgur.com/xfMXMUr.png",
+        ruler = "https://paste.ee/p/wOQfL",
+        maneuver = {{"II"},{"I","I"},{"-","I","I"}}
     }
 
     SHIPS["Imperial I-class Star Destroyer"] = LargeShip:new{
